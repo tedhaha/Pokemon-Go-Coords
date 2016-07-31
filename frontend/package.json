@@ -1,0 +1,47 @@
+{
+  "name": "pokemon-go-coords",
+  "version": "1.0.0",
+  "description": "A web platform for crowdsourced Pokémon Go rare spawns coordinate data.",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "bourbon": "^4.2.7",
+    "bourbon-neat": "^1.8.0",
+    "autoprefixer": "^6.3.7",
+    "browser-sync": "^2.13.0",
+    "eslint": "^3.0.1",
+    "imagemin": "^5.2.2",
+    "imagemin-cli": "^3.0.0",
+    "node-sass": "^3.8.0",
+    "npm-run-all": "^2.3.0",
+    "onchange": "^2.5.0",
+    "postcss-cli": "^2.5.2",
+    "uglify-js": "^2.7.0"
+  },
+  "scripts": {
+    "scss": "node-sass --include-path node_modules/bourbon/app/assets/stylesheets/ --include-path node_modules/bourbon-neat/app/assets/stylesheets/ --output-style compressed --output public/css assets/scss",
+    "autoprefixer": "postcss -u autoprefixer -r public/css/*.css",
+    "lint": "eslint assets/js",
+    "uglifyjs": "uglifyjs -m -o public/js/app.js assets/js/main.js assets/js/pokemon.js && uglifyjs -m -c -o public/js/app.min.js assets/js/main.js assets/js/pokemon.js",
+    "imagemin": "imagemin assets/images/**/* -o public/images",
+    "serve": "browser-sync start --server public --files public",
+    "build:css": "npm run scss && npm run autoprefixer",
+    "build:js": "npm run uglifyjs",
+    "build:images": "npm run imagemin",
+    "build": "npm run build:css && npm run build:js && npm run build:images",
+    "watch:css": "onchange \"assets/scss/**/*\" -- npm run build:css",
+    "watch:js": "onchange \"assets/js/**/*\" -- npm run build:js",
+    "watch:images": "onchange \"assets/images/**/*\" -- npm run build:images",
+    "watch": "npm-run-all -p serve watch:css watch:js watch:images"
+  },
+  "keywords": [
+    "pokemon",
+    "go",
+    "rare",
+    "spawn",
+    "crowdsource",
+    "coords",
+    "coordinates"
+  ],
+  "author": "Sébastien Vercammen"
+}

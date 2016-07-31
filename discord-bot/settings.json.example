@@ -1,0 +1,12 @@
+{
+  "debug": false,
+  "port": 49002,
+  "discord_user": "email@domain.com",
+  "discord_pass": "password",
+  "db_user": "pokespawns",
+  "db_pass": "p4ssw0rd",
+  "db_host": "127.0.0.1",
+  "db_name": "pokespawns",
+  "max_poke_history": 50,
+  "invite_keys": []
+}

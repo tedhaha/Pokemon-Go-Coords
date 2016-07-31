@@ -1,0 +1,153 @@
+@import 'https://fonts.googleapis.com/css?family=Roboto:300,400';
+
+@import 'bourbon';
+@import 'neat';
+
+/* Vars */
+$title-font: 'Roboto', sans-serif;
+$title-weight: 300;
+$text-font: $title-font;
+$text-weight: 400;
+
+$wrapper-max-width: 1024px;
+
+/* Breakpoints */
+$small: new-breakpoint(min-width 768px);
+
+// Skeleton
+#skeleton { display: none !important; }
+
+// General
+h1, h2, h3 {
+  font-family: $title-font;
+  font-weight: $title-weight;
+}
+
+h1 {
+  font-size: modular-scale(5);
+  color: #FFF;
+}
+
+h2 { line-height: 3rem; }
+
+a {
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+// Helpers
+.wrapper {
+  @include outer-container($wrapper-max-width);
+  width: 90%;
+}
+
+//
+body {
+  line-height: 1.5rem;
+  font-family: $text-font;
+  font-weight: $text-weight;
+  -webkit-font-smoothing: antialiased;
+
+  > header {
+    @include row();
+    @include padding(25px 30px);
+
+    background-color: #ee6e73;
+
+    h3 {
+      color: #FFCDD2;
+      font-size: 2rem;
+
+      > span {
+        font-size: 1rem;
+      }
+    }
+  }
+
+  > section#pokes {
+    @include outer-container($wrapper-max-width);
+    @include padding(modular-scale(2) 0);
+    width: 90%;
+
+    h2 {
+      color: #ee6e73;
+      font-size: modular-scale(4);
+    }
+
+    > div.description {
+      margin-bottom: modular-scale(2);
+
+      > p:first-child { margin-top: 0; }
+    }
+
+    > div.options {
+      margin-bottom: modular-scale(2);
+
+      > p {
+        font-weight: bold;
+        margin: 0;
+      }
+
+      > label { display: block; }
+    }
+
+    > div.list {
+      @include fill-parent();
+      display: table;
+      border-collapse: collapse;
+
+      > div.poke {
+        opacity: 0;
+        min-height: 84px;
+        display: table-row;
+        border: 1px solid #e0e0e0;
+
+        // Fancy
+        -webkit-transition: opacity 0.5s ease-in;
+        -moz-transition: opacity 0.5s ease-in;
+        -ms-transition: opacity 0.5s ease-in;
+        -o-transition: opacity 0.5s ease-in;
+        transition: opacity 0.5s ease-in;
+
+        &[data-iv_type="90"] {
+          color: #26a69a;
+        }
+
+        &:not([data-iv_type="90"]) {
+          color: #ee6e73;
+        }
+
+        > div {
+          @include padding(10px 20px);
+          display: table-cell;
+          vertical-align: middle;
+          width: auto;
+        }
+
+        > div.image {
+          width: 60px;
+
+          > img {
+            max-width: 45px;
+          }
+        }
+
+        > div.info {
+          > p { margin: 0; }
+          > p.coords {
+            cursor: pointer;
+          }
+        }
+
+        > div.actions {
+          text-align: right;
+
+          > p { margin: 0; }
+        }
+      }
+    }
+  }
+}

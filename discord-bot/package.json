@@ -1,0 +1,23 @@
+{
+  "name": "discord-coords-bot",
+  "version": "1.0.0",
+  "description": "A Discord bot that gathers coordinate data for rare Pokémon spawns and stores them in a MySQL database.",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^8.0.0",
+    "node-mysql": "^0.4.2",
+    "socket.io": "^1.4.8"
+  },
+  "devDependencies": {},
+  "scripts": {},
+  "keywords": [
+    "pokemon",
+    "go",
+    "discord",
+    "rare",
+    "spawn",
+    "coords",
+    "coordinates"
+  ],
+  "author": "Sébastien Vercammen"
+}

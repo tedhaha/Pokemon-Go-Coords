@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+    <head lang="en">
+        <meta charset="UTF-8">
+        <title>Rare Pokémon Spawns</title>
+
+        <link rel="stylesheet" href="css/normalize.css"/>
+        <link rel="stylesheet" href="css/tipped/tipped.css"/>
+        <link rel="stylesheet" href="css/main.css"/>
+    </head>
+
+    <body>
+        <header>
+            <div class="wrapper">
+                <h1>PokéSpawns</h1>
+                <h3>Simply the very best <span>(like no one ever was~).</span></h3>
+            </div>
+        </header>
+
+        <section id="pokes">
+            <h2>Rare Pokémon</h2>
+
+            <div class="description">
+                <p>This website is crowdsourced, meaning it gets its data from other
+                    (e.g. Discord) users that are submitting coordinates.</p>
+                <p>Duplicates are filtered, there is absolutely no spam and we've added a convenient filter to display
+                    only specific Pokémon.<br>Only the last 50 are displayed. Enjoy.</p>
+                <p><a href="https://github.com/sebastienvercammen/Pokemon-Go-Coords">This website and the back-end Discord bot are also on GitHub.</a></p>
+            </div>
+
+            <div class="options">
+                <p><label for="filter">Filter:</label></p>
+
+                <select id="filter">
+                    <option value="all">Show All</option>
+                    <option value="0">Only show pokémon with IVs</option>
+                    <option value="90">Only show pokémon with IVs > 90%</option>
+                </select>
+            </div>
+
+            <div class="list">
+                <div class="poke" id="skeleton">
+                    <div class="image">
+                        <img src="" alt=""/>
+                    </div>
+
+                    <div class="info">
+                        <p class="title">Blastoise</p>
+                        <p class="coords">-33.9300994838, 151.089034152</p>
+                    </div>
+
+                    <div class="actions">
+                        <input type="button" value="Hide" onclick="hidePoke(this);" />
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script type="text/javascript" src="http://code.jquery.com/jquery-1.12.3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.12/clipboard.min.js"></script>
+        <script src="http://spawns.sebastienvercammen.be:49002/socket.io/socket.io.js"></script>
+        <script src="js/tipped/tipped.min.js"></script>
+        <script src="js/app.min.js"></script>
+    </body>
+</html>
