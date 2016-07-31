@@ -10,14 +10,7 @@ var invite_keys = settings.invite_keys; // Autojoin servers for which we have an
 var pokelog = [];
 
 // Allowed Discord channels
-var allowed_channels = [
-    'high_iv_pokemon',
-    'rare_pokemon',
-    '90plus_ivonly',
-    'rare_spottings',
-    '90_plus_iv',
-    'coord-bot'
-];
+var allowed_channels = settings.allowed_channels;
 
 // Discord
 var bot = new Discord.Client({
@@ -97,12 +90,13 @@ bot.on("message", function(message) {
             // Emit to clients
             io.emit('poke', data);
 
+            // Add to history (newest at front)
+            pokelog.unshift(data);
+
             // Add remaining data (keep it hidden from sockets)
             data.channel = message.channel.name;
             data.userId = message.author.id;
-
-            // Add to history (newest at front)
-            pokelog.unshift(data);
+            data.server = message.server.name;
 
             if(pokelog.length > settings.max_poke_history) {
                 pokelog.pop();

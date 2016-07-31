@@ -8,5 +8,8 @@
   "db_host": "127.0.0.1",
   "db_name": "pokespawns",
   "max_poke_history": 50,
-  "invite_keys": []
+  "invite_keys": [],
+  "allowed_channels": [
+    "high_iv_channel"
+  ]
 }
