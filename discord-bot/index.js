@@ -33,6 +33,10 @@ var conn = mysql.createConnection({
     database: settings.db_name
 });
 
+if(debug) {
+    console.log("Connecting to MySQL...");
+}
+
 conn.connect(function(err) {
     // Stop on error. We need you, MySQL :( SOMEONE THINK OF THE SQL!
     if(err) {
@@ -41,7 +45,20 @@ conn.connect(function(err) {
     }
 
     // Let's go
-    bot.login(settings.discord_user, settings.discord_pass);
+    if(debug) {
+        console.log("Connecting to Discord...");
+    }
+
+    bot.login(settings.discord_user, settings.discord_pass, function(err, token) {
+        if(err) {
+            console.log("Discord error: " + err);
+            process.exit();
+        }
+
+        if(debug) {
+            console.log("Connected to Discord. Token: " + token + ".");
+        }
+    });
 });
 
 // Register MySQL events
