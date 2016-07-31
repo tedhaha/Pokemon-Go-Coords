@@ -3,6 +3,7 @@ var mysql = require("mysql");
 var settings = require("./settings.json");
 var io = require('socket.io')(settings.port || 49001);
 var pokemon = require("./pokemon.json");
+var filtered_pokes = require("./filtered.json");
 
 // Vars
 var debug = settings.debug;
@@ -68,7 +69,8 @@ bot.on("message", function(message) {
         var coord = parseCoordMessage(message.cleanContent);
 
         // Valid coord message? And not yet in our log?
-        if(coord[0] ===  true && !containsPoke(coord[1].name, coord[1].lat, coord[1].long)) {
+        if(coord[0] ===  true && !isFilteredPoke(coord[1].name) &&
+            !containsPoke(coord[1].name, coord[1].lat, coord[1].long)) {
             var poke = coord[1];
             var log = '  [+] Spotted: ' + poke.name;
 
@@ -162,9 +164,20 @@ io.on('connection', function(socket) {
 
 /* Helpers */
 
+// Is this one of filtered pokes?
+function isFilteredPoke(name) {
+    for(let i = 0; i < filtered_pokes.length; i++) {
+        if(filtered_pokes[i] === name) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 // Does our pokelog contain this pokémon with exact same name, lat, lon?
 function containsPoke(name, lat, lon) {
-    for(var i = 0; i < pokelog.length; i++) {
+    for(let i = 0; i < pokelog.length; i++) {
         var p = pokelog[i];
 
         if(p.name === name && p.lat === lat && p.lon === lon) {
@@ -206,6 +219,9 @@ function parseCoordMessage(text) {
     for(let i = 0; i < pieces.length; i++) {
         var p = pieces[i].trim();
         var _p = p.replace(',', ''); // Replace commas at the end/front of lat/long, careful for combined
+
+        if(_p.slice(0, 1) === '.') { _p = _p.slice(1); } // Remove dots at the front of _p
+        if(_p.slice(-1) === '.') { _p = _p.slice(0, -1); } // Remove dots at the end of _p
 
         if(!containsPokeName && isPokeName(p)) {
             containsPokeName = true;
